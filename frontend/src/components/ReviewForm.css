@@ -1,0 +1,67 @@
+.review-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.review-form-title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.review-form-row {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.review-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 200px;
+}
+
+.review-form-rating {
+  flex: 0 0 130px;
+}
+
+.review-form-field label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.review-form-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.review-form-count {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.review-form-server-error {
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255, 90, 95, 0.12);
+  border: 1px solid rgba(255, 90, 95, 0.4);
+  border-radius: var(--radius);
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.review-form .btn-primary {
+  align-self: flex-start;
+}
