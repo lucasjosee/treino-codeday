@@ -1,0 +1,30 @@
+.state-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 3.5rem 1.5rem;
+  color: var(--muted);
+}
+
+.state-message-icon {
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.state-message-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.25rem;
+}
+
+.state-message-desc {
+  margin: 0;
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.state-message .btn {
+  margin-top: 0.5rem;
+}

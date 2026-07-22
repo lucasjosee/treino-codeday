@@ -1,0 +1,37 @@
+.search-bar {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.search-field {
+  position: relative;
+  flex: 1 1 260px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 2.1rem;
+}
+
+.search-genre {
+  flex: 0 0 auto;
+  min-width: 180px;
+}
+
+@media (max-width: 480px) {
+  .search-genre {
+    flex: 1 1 100%;
+  }
+}
