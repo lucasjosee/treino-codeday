@@ -34,6 +34,6 @@ public class MovieService {
     }
 
     private String normalize(String value) {
-        return value == null ? "" : value.strip();
+        return value == null ? "" : value;
     }
 }
