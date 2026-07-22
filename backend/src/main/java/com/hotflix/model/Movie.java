@@ -39,6 +39,24 @@ public class Movie {
     protected Movie() {
     }
 
+    public Movie(
+            String title,
+            Integer year,
+            String genre,
+            String posterUrl,
+            String synopsis,
+            Integer durationMin,
+            String director
+    ) {
+        this.title = title;
+        this.year = year;
+        this.genre = genre;
+        this.posterUrl = posterUrl;
+        this.synopsis = synopsis;
+        this.durationMin = durationMin;
+        this.director = director;
+    }
+
     public Long getId() {
         return id;
     }
