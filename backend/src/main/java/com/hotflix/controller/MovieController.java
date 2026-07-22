@@ -2,8 +2,8 @@ package com.hotflix.controller;
 
 import com.hotflix.dto.MovieDetail;
 import com.hotflix.dto.MovieSummary;
+import com.hotflix.dto.PageResponse;
 import com.hotflix.service.MovieService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +25,12 @@ public class MovieController {
     }
 
     @GetMapping
-    public Page<MovieSummary> findMovies(
+    public PageResponse<MovieSummary> findMovies(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String genre,
             @PageableDefault(size = 12, sort = "id", direction = ASC) Pageable pageable
     ) {
-        return movieService.findMovies(search, genre, pageable);
+        return PageResponse.from(movieService.findMovies(search, genre, pageable));
     }
 
     @GetMapping("/{id}")
