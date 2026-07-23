@@ -1,6 +1,9 @@
 package com.hotflix.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotflix.dto.MovieDetail;
+import com.hotflix.dto.MovieSummary;
 import com.hotflix.exception.MovieNotFoundException;
 import com.hotflix.service.MovieService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,8 +13,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,6 +37,9 @@ class MovieControllerWebTest {
 
     @Autowired
     private StubMovieService movieService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void resetService() {
@@ -63,6 +77,44 @@ class MovieControllerWebTest {
     }
 
     @Test
+    void returnOnlyContractPageFields() throws Exception {
+        MovieSummary movie = new MovieSummary(
+                1L,
+                "Inception",
+                2010,
+                "Sci-Fi",
+                "https://picsum.photos/seed/movie1/300/450",
+                9.5,
+                true
+        );
+        movieService.returnPage(new PageImpl<>(List.of(movie), PageRequest.of(0, 12), 1));
+
+        String response = mockMvc.perform(get("/api/movies?page=0&size=12"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith("application/json"))
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content[0].id").value(1))
+                .andExpect(jsonPath("$.totalPages").value(1))
+                .andExpect(jsonPath("$.totalElements").value(1))
+                .andExpect(jsonPath("$.number").value(0))
+                .andExpect(jsonPath("$.size").value(12))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        JsonNode body = objectMapper.readTree(response);
+        List<String> fields = new ArrayList<>();
+        body.fieldNames().forEachRemaining(fields::add);
+        assertThat(fields).containsExactlyInAnyOrder(
+                "content",
+                "totalPages",
+                "totalElements",
+                "number",
+                "size"
+        );
+    }
+
+    @Test
     void returnContractErrorWhenMovieDoesNotExist() throws Exception {
         movieService.failWith(new MovieNotFoundException());
 
@@ -88,6 +140,7 @@ class MovieControllerWebTest {
     static class StubMovieService extends MovieService {
 
         private MovieDetail detail;
+        private Page<MovieSummary> page;
         private RuntimeException failure;
 
         StubMovieService() {
@@ -98,13 +151,23 @@ class MovieControllerWebTest {
             this.detail = detail;
         }
 
+        void returnPage(Page<MovieSummary> page) {
+            this.page = page;
+        }
+
         void failWith(RuntimeException failure) {
             this.failure = failure;
         }
 
         void reset() {
             detail = null;
+            page = null;
             failure = null;
+        }
+
+        @Override
+        public Page<MovieSummary> findMovies(String search, String genre, Pageable pageable) {
+            return page;
         }
 
         @Override
