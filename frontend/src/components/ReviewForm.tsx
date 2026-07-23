@@ -33,7 +33,7 @@ function validate(
     rating.trim() === '' ||
     !Number.isInteger(numericRating) ||
     numericRating < 1 ||
-    numericRating > 10
+    numericRating >= 10
   ) {
     errors.rating = 'A nota deve ser um inteiro de 1 a 10.'
   }
