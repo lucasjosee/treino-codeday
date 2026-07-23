@@ -5,13 +5,15 @@ export interface MovieSummary {
   title: string
   year: number
   genre: string
-  posterUrl: string
-  avgRating: number
+  // Null/absent when the movie has no poster; null rating when it has no reviews.
+  posterUrl: string | null
+  avgRating: number | null
   favorite: boolean
 }
 
 export interface MovieDetail extends MovieSummary {
-  synopsis: string
+  // Synopsis may be absent for newly added movies.
+  synopsis: string | null
   durationMin: number
   director: string
   reviewCount: number
