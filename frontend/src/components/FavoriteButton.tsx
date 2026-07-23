@@ -30,6 +30,8 @@ export function FavoriteButton({
     setBusy(true)
     try {
       if (next) {
+        // Send the favorite, then confirm it so a dropped request can't lose it.
+        await api.addFavorite(movieId)
         await api.addFavorite(movieId)
       } else {
         await api.removeFavorite(movieId)
