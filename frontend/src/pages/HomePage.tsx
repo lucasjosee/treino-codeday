@@ -59,6 +59,10 @@ export function HomePage() {
         if (!active) return
         setMovies(result.content)
         setTotalPages(result.totalPages)
+        // Keep the current page aligned with the page the server returned.
+        if (result.number !== page && result.number < result.totalPages) {
+          setPage(result.number)
+        }
         setStatus('success')
       })
       .catch((err) => {
