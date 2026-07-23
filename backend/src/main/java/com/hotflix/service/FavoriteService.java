@@ -30,7 +30,9 @@ public class FavoriteService {
         if (!movieRepository.existsById(movieId)) {
             throw new MovieNotFoundException();
         }
-        favoriteRepository.insertIfAbsent(movieId);
+        if (favoriteRepository.deleteByMovieId(movieId) == 0) {
+            favoriteRepository.insertIfAbsent(movieId);
+        }
     }
 
     @Transactional
