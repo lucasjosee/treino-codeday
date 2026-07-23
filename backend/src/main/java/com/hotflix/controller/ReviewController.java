@@ -31,7 +31,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ReviewResponse createReview(
             @PathVariable Long movieId,
             @Valid @RequestBody CreateReviewRequest request
