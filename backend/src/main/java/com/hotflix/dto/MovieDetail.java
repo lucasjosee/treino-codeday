@@ -13,4 +13,7 @@ public record MovieDetail(
         String director,
         Long reviewCount
 ) {
+    public MovieDetail {
+        avgRating = Math.round(avgRating * 10.0) / 10.0;
+    }
 }
