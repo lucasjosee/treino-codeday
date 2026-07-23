@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { MovieSummary } from '../api'
-import { handlePosterError } from '../lib/posterFallback'
+import { FALLBACK_POSTER, handlePosterError } from '../lib/posterFallback'
 import { FavoriteButton } from './FavoriteButton'
 import { RatingBadge } from './RatingBadge'
 import './MovieCard.css'
@@ -20,7 +20,7 @@ export function MovieCard({ movie, onFavoriteChange }: MovieCardProps) {
           aria-label={movie.title}
         >
           <img
-            src={movie.posterUrl}
+            src={movie.posterUrl || FALLBACK_POSTER}
             alt={`Pôster de ${movie.title}`}
             loading="lazy"
             onError={handlePosterError}

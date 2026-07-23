@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api, normalizeError } from '../api'
 import type { MovieDetail, NormalizedError, Review } from '../api'
-import { handlePosterError } from '../lib/posterFallback'
+import { FALLBACK_POSTER, handlePosterError } from '../lib/posterFallback'
 import { RatingBadge } from '../components/RatingBadge'
 import { FavoriteButton } from '../components/FavoriteButton'
 import { ReviewForm } from '../components/ReviewForm'
@@ -113,7 +113,7 @@ export function MovieDetailPage() {
       <article className="detail">
         <div className="detail-poster">
           <img
-            src={movie.posterUrl}
+            src={movie.posterUrl || FALLBACK_POSTER}
             alt={`Pôster de ${movie.title}`}
             onError={handlePosterError}
           />
@@ -137,7 +137,9 @@ export function MovieDetailPage() {
           <p className="detail-director">
             <span className="detail-label">Diretor:</span> {movie.director}
           </p>
-          <p className="detail-synopsis">{movie.synopsis}</p>
+          <p className="detail-synopsis">
+            {movie.synopsis || 'Sinopse não disponível.'}
+          </p>
 
           <FavoriteButton
             variant="full"

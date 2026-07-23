@@ -10,3 +10,8 @@
 .rating-star {
   color: var(--star);
 }
+
+.rating-badge-empty {
+  color: var(--muted);
+  font-weight: 500;
+}

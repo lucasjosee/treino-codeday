@@ -158,8 +158,10 @@ const movies: MockMovie[] = [
     year: 2014,
     genre: 'Drama',
     posterUrl: poster('Whiplash', 45),
-    avgRating: 8.5,
-    favorite: false,
+    // No reviews yet → null rating; also a favorite, so the Favorites grid
+    // must render a null rating too.
+    avgRating: null,
+    favorite: true,
     synopsis:
       "A promising young drummer enrolls at a cut-throat music conservatory whose dream of greatness is mentored by an instructor who will stop at nothing.",
     durationMin: 106,
@@ -186,10 +188,10 @@ const movies: MockMovie[] = [
     year: 2014,
     genre: 'Comedy',
     posterUrl: poster('The Grand Budapest Hotel', 320),
-    avgRating: 8.1,
+    // Maximally hostile record: no rating, no synopsis and no reviews.
+    avgRating: null,
     favorite: false,
-    synopsis:
-      "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy.",
+    synopsis: null,
     durationMin: 99,
     director: 'Wes Anderson',
     reviewCount: 0,
@@ -213,8 +215,9 @@ const movies: MockMovie[] = [
     title: 'Get Out',
     year: 2017,
     genre: 'Horror',
-    posterUrl: poster('Get Out', 100),
-    avgRating: 7.7,
+    // No poster and no rating → poster fallback + "—" rating must both render.
+    posterUrl: null,
+    avgRating: null,
     favorite: false,
     synopsis:
       "A young African-American visits his white girlfriend's parents for the weekend, where his uneasiness about their reception eventually reaches a boiling point.",
