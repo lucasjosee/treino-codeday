@@ -20,7 +20,6 @@ export function HomePage() {
 
   const [movies, setMovies] = useState<MovieSummary[]>([])
   const [totalPages, setTotalPages] = useState(1)
-  const [totalElements, setTotalElements] = useState(0)
   const [genres, setGenres] = useState<string[]>([])
 
   const [status, setStatus] = useState<Status>('loading')
@@ -60,7 +59,6 @@ export function HomePage() {
         if (!active) return
         setMovies(result.content)
         setTotalPages(result.totalPages)
-        setTotalElements(result.totalElements)
         setStatus('success')
       })
       .catch((err) => {
@@ -93,7 +91,7 @@ export function HomePage() {
         <h1>Filmes</h1>
         {status === 'success' && (
           <p className="home-count">
-            {totalElements} {totalElements === 1 ? 'filme' : 'filmes'}
+            {movies.length} {movies.length === 1 ? 'filme' : 'filmes'}
           </p>
         )}
       </header>
