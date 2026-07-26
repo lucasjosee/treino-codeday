@@ -23,7 +23,7 @@ public class MovieService {
 
     public Page<MovieSummary> findMovies(String search, String genre, Pageable pageable) {
         String normalizedSearch = normalize(search);
-        String normalizedGenre = normalizedSearch.isBlank() ? normalize(genre) : "";
+        String normalizedGenre = normalizedSearch.isBlank() ? "" : normalize(genre);
         return movieRepository.findSummaries(normalizedSearch, normalizedGenre, pageable);
     }
 
